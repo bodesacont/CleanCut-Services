@@ -349,7 +349,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Indianapolis Area · Summer 2025</div>
+  <div class="hero-badge">Indianapolis Area · Summer 2026</div>
   <h1>Lawn &amp; Auto<br><em>Done Right.</em></h1>
   <p>Professional lawn mowing and car detailing from one trusted crew. Schedule online in seconds.</p>
   <a href="#book" class="btn-primary">Book a Free Consultation</a>
@@ -479,7 +479,7 @@
 <footer>
   <div><span>CleanCut Services</span> · Indianapolis, IN</div>
   <div style="margin-top:0.5rem;">Contact: <span>your-email@email.com</span> · <span>(317) 555-0000</span></div>
-  <div style="margin-top:0.5rem; font-size:0.75rem;">© 2025 CleanCut Services · Built with GitHub Pages</div>
+  <div style="margin-top:0.5rem; font-size:0.75rem;">© 2026 CleanCut Services · Built with GitHub Pages</div>
 </footer>
 
 <script>
@@ -509,7 +509,7 @@
   const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // This holds all booked slots loaded from your Google Sheet
-  // Format: Set of strings like "Jun 9 2025|9:00 AM"
+  // Format: Set of strings like "Jun 9 2026|9:00 AM"
   let bookedSlots = new Set();
   let selectedSlot = null;
   let selectedSlotKey = null;
@@ -518,7 +518,7 @@
 
   // Finds the coming Monday from today
   function getNextMonday() {
-    const d = new Date();
+    const d = new Date('2026-06-02');
     d.setHours(0, 0, 0, 0);
     const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
     // If today IS Monday, still jump to NEXT Monday (+7)
@@ -541,7 +541,7 @@
   }
 
   // Turns a date into a unique key used to match booked slots
-  // Example: "Jun 9 2025"
+  // Example: "Jun 9 2026"
   function dateKey(d) {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
@@ -561,7 +561,7 @@
     try {
       const res = await fetch(SCRIPT_URL + '?action=getBooked');
       const data = await res.json();
-      // data.booked is an array like ["Jun 9 2025|9:00 AM", "Jun 10 2025|1:00 PM"]
+      // data.booked is an array like ["Jun 9 2026|9:00 AM", "Jun 10 2026|1:00 PM"]
       data.booked.forEach(entry => bookedSlots.add(entry));
     } catch (e) {
       console.warn('Could not load bookings from sheet — showing all slots as open.');
@@ -611,7 +611,7 @@
           btn.className = 'slot';
           btn.textContent = time;
 
-          // The key is "Jun 9 2025|9:00 AM"
+          // The key is "Jun 9 2026|9:00 AM"
           // This is how we match against what's in the Google Sheet
           const key = `${dateKey(date)}|${time}`;
 
@@ -680,7 +680,7 @@
     // The data we're sending to the Google Sheet
     const payload = {
       action:   'addBooking',
-      slotKey:  selectedSlotKey,   // "Jun 9 2025|9:00 AM"
+      slotKey:  selectedSlotKey,   // "Jun 9 2026|9:00 AM"
       slot:     selectedSlot,      // "Mon Jun 9 at 9:00 AM" (human readable)
       name, phone, email, service, notes,
       submitted: new Date().toLocaleString()
