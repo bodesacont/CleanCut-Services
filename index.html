@@ -58,23 +58,56 @@
 
   /* HERO */
   .hero {
-    background: var(--dark);
     color: #fff;
     padding: 5rem 2rem 4rem;
     text-align: center;
     position: relative;
     overflow: hidden;
+    background: var(--dark);
   }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(82,183,136,0.04) 40px,
-      rgba(82,183,136,0.04) 80px
+  /* Layer 1 (bottom): scrolling photo collage */
+  .hero-photos {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+    will-change: transform;
+    z-index: 0;
+  }
+  .hero-photo {
+    flex-shrink: 0;
+    width: 280px;
+    overflow: hidden;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.45) saturate(0.8);
+  }
+
+  /* Layer 2: dark tint so text stays readable */
+  .hero-tint {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.55);
+    z-index: 1;
+  }
+
+  /* Layer 3: diagonal green stripes */
+  .hero-stripes {
+    position: absolute;
+    inset: 0;
     );
+       z-index: 2;
+  }
+
+  /* Layer 4 (top): actual hero content */
+  .hero-content {
+    position: relative;
+    z-index: 3;
   }
   .hero-badge {
     display: inline-block;
@@ -347,12 +380,36 @@
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">Indianapolis Area · Summer 2026</div>
-  <h1>Lawn &amp; Auto<br><em>Done Right.</em></h1>
-  <p>Professional lawn mowing and car detailing from one trusted crew. Schedule online in seconds.</p>
-  <a href="#book" class="btn-primary">Book a Free Consultation</a>
+<!-- HERO with scroll-driven photo collage behind stripes -->
+<!-- HERO with scroll-driven photo collage behind stripes -->
+
+  <!-- Layer 1: photos — scroll moves these left/right -->
+ <section class="hero">
+  <div class="hero-photos" id="heroPhotos">
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1464820453369-31d2c0b651af?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=500&fit=crop" alt="" /></div>
+    <div class="hero-photo"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=500&fit=crop" alt="" /></div>
+  </div>
+
+  <!-- Layer 2: dark tint -->
+  <div class="hero-tint"></div>
+
+  <!-- Layer 3: diagonal stripes -->
+  <div class="hero-stripes"></div>
+
+  <!-- Layer 4: text content -->
+  <div class="hero-content">
+    <div class="hero-badge">Indianapolis Area · Summer 2025</div>
+    <h1>Lawn &amp; Auto<br><em>Done Right.</em></h1>
+    <p>Professional lawn mowing and car detailing from one trusted crew. Schedule online in seconds.</p>
+    <a href="#book" class="btn-primary">Book a Free Consultation</a>
+  </div>
+
 </section>
 
 <!-- SERVICES -->
@@ -481,6 +538,57 @@
   <div style="margin-top:0.5rem;">Contact: <span>denealbode@gmail.com</span> · <span>(463) 280 - 6344</span></div>
   <div style="margin-top:0.5rem; font-size:0.75rem;">© 2026 CleanCut Services · Built with GitHub Pages</div>
 </footer>
+ 
+<script>
+  // ── SCROLL-DRIVEN PHOTO COLLAGE ──────────────────────────────────
+  //
+  // The photos sit behind the hero as a background layer.
+  // They only move when the user scrolls — no auto-play.
+  //
+  // Scroll DOWN → photos slide LEFT  (negative direction)
+  // Scroll UP   → photos slide RIGHT (positive direction)
+  //
+  // The strip is wider than the screen so there's always something
+  // to see on both sides as you scroll back and forth.
+
+  const photos = document.getElementById('heroPhotos');
+
+  // Starting position: centered so scrolling either way reveals more
+  const PHOTO_WIDTH = 280;
+  const PHOTO_COUNT = 8;
+  const TOTAL_WIDTH = (PHOTO_WIDTH + 6) * PHOTO_COUNT;
+  const SCREEN_WIDTH = window.innerWidth;
+
+  // Start offset so photos fill the hero and overhang both sides
+  let photoPos = -(TOTAL_WIDTH / 2 - SCREEN_WIDTH / 2);
+
+  // How many pixels the photos move per pixel scrolled
+  // 0.4 = subtle parallax feel, not too fast
+  const PARALLAX_STRENGTH = 0.4;
+
+  // Clamp range — how far left/right the photos can travel
+  const MIN_POS = -(TOTAL_WIDTH - SCREEN_WIDTH) - 100;
+  const MAX_POS = 100;
+
+  let lastY = window.scrollY;
+
+  // Set initial position
+  photos.style.transform = 'translateX(' + photoPos + 'px)';
+
+  window.addEventListener('scroll', () => {
+    const currentY = window.scrollY;
+    const delta = currentY - lastY; // positive = scrolled down, negative = scrolled up
+
+    // Scroll down → shift photos left (subtract), scroll up → shift right (add)
+    photoPos -= delta * PARALLAX_STRENGTH;
+
+    // Clamp so it doesn't go too far off screen
+    photoPos = Math.max(MIN_POS, Math.min(MAX_POS, photoPos));
+
+    photos.style.transform = 'translateX(' + photoPos + 'px)';
+    lastY = currentY;
+  });
+</script>
 
 <script>
   // ════════════════════════════════════════════════════════════════
