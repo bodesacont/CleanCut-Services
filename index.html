@@ -518,7 +518,7 @@
 
   // Finds the coming Monday from today
   function getNextMonday() {
-    const d = new Date('2026-06-02');
+    const d = new Date('2026-06-01');
     d.setHours(0, 0, 0, 0);
     const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
     // If today IS Monday, still jump to NEXT Monday (+7)
