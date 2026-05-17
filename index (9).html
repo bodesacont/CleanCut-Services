@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CleanCut Services – Lawn & Auto Detailing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --cream: #f8f5ef;
+    --dark: #1a1a1a;
+    --mid: #555;
+    --border: #ddd;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--dark);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--green-light);
+    letter-spacing: 2px;
+  }
+  .logo span { color: #fff; }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--green-light); }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(82,183,136,0.04) 40px,
+      rgba(82,183,136,0.04) 80px
+    );
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green);
+    color: var(--green-pale);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green-light);
+  }
+  .hero p {
+    max-width: 500px;
+    margin: 1.5rem auto 2.5rem;
+    color: #aaa;
+    font-size: 1.05rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--dark);
+    font-weight: 700;
+    padding: 0.9rem 2.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.1s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #74c69d; transform: translateY(-1px); }
+
+  /* SERVICES */
+  .section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+  }
+  .section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 2.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+
+  .service-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--green-light);
+  }
+  .service-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .service-card p { color: var(--mid); font-size: 0.95rem; }
+  .price-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--green-pale);
+    color: var(--green);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 4px;
+    background: linear-gradient(90deg, var(--green) 0%, var(--green-light) 50%, var(--green-pale) 100%);
+  }
+
+  /* CALENDAR SECTION */
+  #book {
+    background: #fff;
+    padding: 4rem 2rem;
+  }
+  #book .inner { max-width: 850px; margin: 0 auto; }
+
+  .calendar-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 650px) { .calendar-wrap { grid-template-columns: 1fr; } }
+
+  .week-header {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 0.75rem;
+  }
+
+  .day-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .day-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--mid);
+    min-width: 36px;
+    padding-top: 4px;
+  }
+  .slots { display: flex; flex-wrap: wrap; gap: 6px; }
+  .slot {
+    background: var(--green-pale);
+    color: var(--green);
+    border: 1px solid #b7e4c7;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .slot:hover { background: var(--green-light); color: #fff; border-color: var(--green-light); }
+  .slot.booked { background: #f5f5f5; color: #bbb; border-color: #e8e8e8; cursor: default; text-decoration: line-through; }
+  .slot.selected { background: var(--green); color: #fff; border-color: var(--green); }
+
+  /* BOOKING FORM */
+  .booking-form {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+    display: none;
+  }
+  .booking-form.visible { display: block; }
+  .booking-form h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  @media (max-width: 550px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--mid); }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--green-light);
+  }
+  .selected-slot-info {
+    background: var(--green);
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .btn-submit {
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--green); }
+
+  .success-msg {
+    display: none;
+    background: var(--green-pale);
+    border: 1px solid #b7e4c7;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .success-msg.visible { display: block; }
+  .success-msg h3 { font-size: 1.4rem; color: var(--green); margin-bottom: 0.5rem; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 0;
+  }
+  .faq-q {
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-q::after { content: '+'; font-size: 1.4rem; color: var(--green-light); }
+  .faq-q.open::after { content: '–'; }
+  .faq-a {
+    display: none;
+    padding-top: 0.75rem;
+    color: var(--mid);
+    font-size: 0.95rem;
+  }
+  .faq-a.visible { display: block; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: #888;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer span { color: var(--green-light); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Clean<span>Cut</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#book">Book</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Indianapolis Area · Summer 2025</div>
+  <h1>Lawn &amp; Auto<br><em>Done Right.</em></h1>
+  <p>Professional lawn mowing and car detailing from one trusted crew. Schedule online in seconds.</p>
+  <a href="#book" class="btn-primary">Book a Free Consultation</a>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-label">What We Do</div>
+  <h2>Two Services. One Business.</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3>Lawn Mowing</h3>
+      <p>Clean cuts, trimmed edges, and a yard you'll be proud of. Weekly and bi-weekly schedules available. We bring all equipment.</p>
+      <div class="price-tag">Starting at $25–$50 / visit</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚗</div>
+      <h3>Car Detailing</h3>
+      <p>Hand wash, vacuum, interior wipe-down, and window cleaning. We come to your driveway — no trip to a shop needed.</p>
+      <div class="price-tag">Starting at $30–$60 / vehicle</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📦</div>
+      <h3>Bundle &amp; Save</h3>
+      <p>Get both your lawn mowed and car detailed on the same day. Save time and get a discount when you book both together.</p>
+      <div class="price-tag">Ask about bundle pricing</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✅</div>
+      <h3>Free Consultation</h3>
+      <p>Not sure what you need? Book a 15-minute walkthrough. We'll assess your yard or car and give you a no-pressure quote.</p>
+      <div class="price-tag">Always Free</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BOOK -->
+<div id="book">
+  <div class="inner">
+    <div class="section-label">Schedule a Visit</div>
+    <h2 class="section" style="padding:0 0 1.5rem; font-family:'Bebas Neue',sans-serif; font-size:2.8rem; letter-spacing:1px;">Pick a Time Slot</h2>
+    <p style="color:var(--mid); margin-bottom:2rem; font-size:0.95rem;">
+      Select any open slot below. The calendar shows the <strong>next two weeks</strong> of availability and refreshes each Monday.
+      Booked slots are shown but unavailable.
+    </p>
+
+    <div class="calendar-wrap" id="calendarWrap"></div>
+
+    <div class="booking-form" id="bookingForm">
+      <h3>Complete Your Booking</h3>
+      <div class="selected-slot-info" id="slotInfo">–</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="name" placeholder="Jane Smith" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="(317) 555-0100" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="jane@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select id="service">
+            <option value="">Select a service…</option>
+            <option>Lawn Mowing</option>
+            <option>Car Detailing</option>
+            <option>Both (Bundle)</option>
+            <option>Free Consultation</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label>Address / Notes</label>
+        <textarea id="notes" rows="3" placeholder="Your address and anything we should know…"></textarea>
+      </div>
+      <button class="btn-submit" onclick="submitBooking()">Confirm Booking →</button>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <h3>🎉 You're booked!</h3>
+      <p id="confirmText">We'll reach out to confirm within a few hours. See you then!</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-label">Questions</div>
+  <h2>Frequently Asked</h2>
+  <div id="faqList">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How much does it cost?</div>
+      <div class="faq-a">Lawn mowing starts at $25–$50 depending on yard size. Car detailing starts at $30–$60. Book a free consultation and I'll give you an exact quote with no pressure.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What area do you serve?</div>
+      <div class="faq-a">Currently serving neighborhoods in and around Indianapolis. If you're not sure, just book a consultation and ask — I'll let you know if I can make it work.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you bring all the supplies?</div>
+      <div class="faq-a">Yes! I bring my own mower, trimmer, edger, and all car cleaning supplies. You don't need to provide anything except access to your yard or vehicle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if it rains?</div>
+      <div class="faq-a">I'll reach out the day before to confirm. If weather makes a job impossible, we'll reschedule for the next available slot — no charge.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I pay?</div>
+      <div class="faq-a">Cash, Venmo, or CashApp — all accepted. Payment is due after the job is done and you're happy with the results.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I set up a recurring schedule?</div>
+      <div class="faq-a">Absolutely! Weekly and bi-weekly lawn mowing plans are available. Just mention it when you book and we'll set up a standing schedule.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><span>CleanCut Services</span> · Indianapolis, IN</div>
+  <div style="margin-top:0.5rem;">Contact: <span>your-email@email.com</span> · <span>(317) 555-0000</span></div>
+  <div style="margin-top:0.5rem; font-size:0.75rem;">© 2025 CleanCut Services · Built with GitHub Pages</div>
+</footer>
+
+<script>
+  // ════════════════════════════════════════════════════════════════
+  // CLEANCUT SERVICES — CALENDAR + BOOKING SYSTEM
+  // ════════════════════════════════════════════════════════════════
+  //
+  // HOW THIS WORKS IN PLAIN ENGLISH:
+  //
+  // 1. When the page loads, it asks your Google Sheet "what slots
+  //    are already booked?" and grays those out automatically.
+  //
+  // 2. When a customer fills out the form and hits submit, it adds
+  //    a new row to your Google Sheet with their info.
+  //
+  // 3. You never touch the code again — just manage your Sheet.
+  //
+  // ── SETUP STEP 1 ────────────────────────────────────────────────
+  // Paste your Google Apps Script Web App URL below.
+  // (See the setup guide for how to get this URL — takes ~5 minutes)
+  //
+  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+  //
+  // ── THAT'S THE ONLY LINE YOU EVER CHANGE ────────────────────────
+
+  const SLOT_TIMES = ['9:00 AM', '11:00 AM', '1:00 PM', '3:00 PM'];
+  const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  // This holds all booked slots loaded from your Google Sheet
+  // Format: Set of strings like "Jun 9 2025|9:00 AM"
+  let bookedSlots = new Set();
+  let selectedSlot = null;
+  let selectedSlotKey = null;
+
+  // ── DATE HELPERS ─────────────────────────────────────────────────
+
+  // Finds the coming Monday from today
+  function getNextMonday() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
+    // If today IS Monday, still jump to NEXT Monday (+7)
+    // Otherwise jump forward to the next Monday
+    const daysUntilMonday = day === 0 ? 1 : (8 - day) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilMonday);
+    return d;
+  }
+
+  // Adds N days to a date and returns a new date
+  function addDays(d, n) {
+    const r = new Date(d);
+    r.setDate(r.getDate() + n);
+    return r;
+  }
+
+  // Turns a date into a readable string like "Jun 9"
+  function formatDate(d) {
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  // Turns a date into a unique key used to match booked slots
+  // Example: "Jun 9 2025"
+  function dateKey(d) {
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // ── STEP 1: LOAD BOOKED SLOTS FROM GOOGLE SHEET ──────────────────
+  // This runs when the page first loads.
+  // It asks your Google Sheet for all booked date+time combos
+  // and stores them in the bookedSlots Set above.
+
+  async function loadBookedSlots() {
+    // If you haven't set up the script URL yet, skip loading
+    if (SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      buildCalendar(); // build with no bookings (all open)
+      return;
+    }
+
+    try {
+      const res = await fetch(SCRIPT_URL + '?action=getBooked');
+      const data = await res.json();
+      // data.booked is an array like ["Jun 9 2025|9:00 AM", "Jun 10 2025|1:00 PM"]
+      data.booked.forEach(entry => bookedSlots.add(entry));
+    } catch (e) {
+      console.warn('Could not load bookings from sheet — showing all slots as open.');
+    }
+    buildCalendar();
+  }
+
+  // ── STEP 2: BUILD THE CALENDAR ────────────────────────────────────
+  // Builds the two-week grid starting from next Monday.
+  // Checks each slot against bookedSlots — if it's in there, gray it out.
+
+  function buildCalendar() {
+    const wrap = document.getElementById('calendarWrap');
+    wrap.innerHTML = '';
+    const monday = getNextMonday();
+
+    // Build Week 1 (offset 0) and Week 2 (offset 7 days)
+    [0, 7].forEach(weekOffset => {
+      const weekStart = addDays(monday, weekOffset);
+      const weekEnd = addDays(weekStart, 5); // Saturday
+      const col = document.createElement('div');
+
+      // Week label at the top e.g. "Week of Jun 9 – Jun 14"
+      const label = document.createElement('div');
+      label.className = 'week-header';
+      label.textContent = `Week of ${formatDate(weekStart)} – ${formatDate(weekEnd)}`;
+      col.appendChild(label);
+
+      // Loop through Mon (0) to Sat (5)
+      for (let d = 0; d < 6; d++) {
+        const date = addDays(weekStart, d);
+        const row = document.createElement('div');
+        row.className = 'day-row';
+
+        // Day label e.g. "Mon Jun 9"
+        const dayLabel = document.createElement('div');
+        dayLabel.className = 'day-label';
+        dayLabel.textContent = `${DAYS[d]} ${formatDate(date)}`;
+        row.appendChild(dayLabel);
+
+        const slots = document.createElement('div');
+        slots.className = 'slots';
+
+        // Build each time slot button for this day
+        SLOT_TIMES.forEach(time => {
+          const btn = document.createElement('button');
+          btn.className = 'slot';
+          btn.textContent = time;
+
+          // The key is "Jun 9 2025|9:00 AM"
+          // This is how we match against what's in the Google Sheet
+          const key = `${dateKey(date)}|${time}`;
+
+          if (bookedSlots.has(key)) {
+            // This slot is taken — gray it out, disable clicking
+            btn.classList.add('booked');
+            btn.disabled = true;
+            btn.title = 'Already booked';
+          } else {
+            // Open slot — clicking it opens the booking form
+            btn.onclick = () => selectSlot(btn, date, time, key);
+          }
+
+          slots.appendChild(btn);
+        });
+
+        row.appendChild(slots);
+        col.appendChild(row);
+      }
+
+      wrap.appendChild(col);
+    });
+  }
+
+  // ── STEP 3: CUSTOMER SELECTS A SLOT ──────────────────────────────
+  // Highlights the chosen slot and scrolls down to the booking form.
+
+  function selectSlot(btn, date, time, key) {
+    // Remove highlight from any previously selected slot
+    document.querySelectorAll('.slot.selected').forEach(s => s.classList.remove('selected'));
+    btn.classList.add('selected');
+
+    // Store which slot was picked
+    selectedSlotKey = key; // used when submitting to the sheet
+    const dayName = DAYS[['Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(
+      btn.closest('.day-row').querySelector('.day-label').textContent.split(' ')[0]
+    )];
+    selectedSlot = `${btn.closest('.day-row').querySelector('.day-label').textContent} at ${time}`;
+
+    // Show the form and scroll to it
+    const form = document.getElementById('bookingForm');
+    form.classList.add('visible');
+    document.getElementById('slotInfo').textContent = '📅 ' + selectedSlot;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── STEP 4: CUSTOMER SUBMITS THE FORM ────────────────────────────
+  // Validates fields, sends data to Google Sheet, shows confirmation.
+
+  async function submitBooking() {
+    const name    = document.getElementById('name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value;
+    const notes   = document.getElementById('notes').value.trim();
+
+    if (!name || !phone || !email || !service) {
+      alert('Please fill out your name, phone, email, and service type.');
+      return;
+    }
+
+    const submitBtn = document.querySelector('.btn-submit');
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    // The data we're sending to the Google Sheet
+    const payload = {
+      action:   'addBooking',
+      slotKey:  selectedSlotKey,   // "Jun 9 2025|9:00 AM"
+      slot:     selectedSlot,      // "Mon Jun 9 at 9:00 AM" (human readable)
+      name, phone, email, service, notes,
+      submitted: new Date().toLocaleString()
+    };
+
+    if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        // Mark this slot as booked locally so it grays out immediately
+        bookedSlots.add(selectedSlotKey);
+        buildCalendar();
+      } catch (e) {
+        console.warn('Could not save to sheet — check your Script URL.');
+      }
+    }
+
+    // Show success message
+    document.getElementById('bookingForm').classList.remove('visible');
+    const msg = document.getElementById('successMsg');
+    msg.classList.add('visible');
+    document.getElementById('confirmText').textContent =
+      `Thanks, ${name}! You're booked for ${selectedSlot}. I'll text or email you soon to confirm.`;
+    msg.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── FAQ TOGGLE ────────────────────────────────────────────────────
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+    el.nextElementSibling.classList.toggle('visible');
+  }
+
+  // ── START ─────────────────────────────────────────────────────────
+  // Load bookings from Google Sheet, then build the calendar
+  loadBookedSlots();
+</script>
+
+</body>
+</html>
